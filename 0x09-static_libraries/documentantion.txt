@@ -1,0 +1,26 @@
+1- Que es una biblioteca "C"? y para que sirve ? : 
+
+Una biblioteca es un archivo que contiene varios archivos de objetos. Normalmente la
+biblioteca esta indexada por lo que es facil encontrar simbolos(funciones, variables, etc) en ellas.
+
+La mayoria de sistemas operativos modernos nos permiten crear y usar dos tipos
+de librerias, 'Estaticas y Dinamicas (Compartidas).
+
+Las bibliotecas estaticas:
+
+son solo colecciones de archivos de objetos que estan vinculados
+al programa duranten la fase de la vinculacion de la compilacion , y no son relevantes durante el tiempo 
+de ejecucion
+
+Las bibliotecas Dinamicas (Compartidas):
+
+Estan vinculadosal programaen dos etapas 
+    
+    1- Durante el tiempo de compilacion, el enlazador verifica que todos los simbolos
+    (funciones variables etc) requeridos por el programa esten vinculados al mismo
+    o a una de sus bibliotecas Compartidas.
+
+    sin embargo los 
+
+
+
