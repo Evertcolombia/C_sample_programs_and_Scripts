@@ -97,3 +97,4 @@ void print_a_char_ptr(char *separator, va_list args)
 
 	printf("%s%s", separator, arg);
 }
+
