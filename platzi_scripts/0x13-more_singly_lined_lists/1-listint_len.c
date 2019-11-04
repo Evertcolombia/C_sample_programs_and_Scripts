@@ -3,9 +3,8 @@
 #include "lists.h"
 
 /**
-* add_nodeint - counts the number of nodes
+* alistint_len - counts the length of list
  * head: double pointer
- * n: value
  * 
  * Return: node counter
  */
