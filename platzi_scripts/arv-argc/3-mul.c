@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 /**
- * main - print  arguments
+ * main - multipli two arguments
  * @argc: arguments number
  * @argv: array call arg
  * Return: Success 0
