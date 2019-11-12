@@ -17,7 +17,6 @@ void free_listint(listint_t *head)
     {
         tmp = head; /* temporal node = head node */
         head = head->next; /* head node pass to pointer the next */
-        free(tmp->n); /* free the values o the tmp node */
         free(tmp); /* free space for tmp node */
     }
     /* finally frees the head */
