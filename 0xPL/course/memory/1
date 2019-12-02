@@ -1,0 +1,26 @@
+#include "header.h"
+
+void createList(char *buffer, int *goOn)
+{
+	CONTACT *list = NULL;
+	int listSize = 0;
+
+	if (strcmp("0", buffer) != 0)
+	{
+		if(!list)
+			list = malloc(sizeof(CONTACT));
+		else
+			list = realloc(list, sizeof(CONTACT) * (listSize + 1));
+		strcpy(list[listSize].name, buffer);
+		
+		printf("Ingrese el email de %s\n", buffer);
+		scanf("%99s", &buffer);
+		strcpy(list[listSize].email, buffer);
+
+		*goOn = 1;
+		listSize++;
+	}
+	else
+		*goOn = 0;
+}
+
