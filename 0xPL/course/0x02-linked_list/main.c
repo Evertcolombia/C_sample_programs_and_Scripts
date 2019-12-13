@@ -4,7 +4,7 @@ int main(int argc, const char *arg[])
 {
 	NODE *start = NULL, *current, *next;
 	char goOn;
-	int listSize = 0, number;
+	int listSize = 0, number, deleteNumber;
 
 	do {
 		printf("La lista contiene %d nodos. (Ingrese el siguiente numero 0 para finalizar)\n", listSize);
@@ -28,7 +28,20 @@ int main(int argc, const char *arg[])
 			goOn = 1;
 		}
 		else
-			goOn = 0;
+		{
+			scanf("insert the number in the node that wants to delete: %d. (press 0 to out of the program))\n", &deleteNumber);
+			if (deleteNumber)
+			{
+				free_node(current,  deleteNumber);
+                                printf("the node with the %d number was deleted\n", deleteNumber);
+                                continue;
+			}
+			else
+			{
+				goOn = 0;
+			}
+		}
+
 	} while (goOn);
 
 	current = start;

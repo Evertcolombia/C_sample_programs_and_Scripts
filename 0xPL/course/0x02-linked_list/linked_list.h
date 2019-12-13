@@ -14,4 +14,5 @@ typedef struct Node {
 NODE *createNode(int number);
 void NodeContentPrint(NODE *current);
 int freeList(NODE *current);
+int free_node(NODE *current, int number);
 #endif

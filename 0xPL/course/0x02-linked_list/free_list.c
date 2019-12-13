@@ -9,4 +9,3 @@ int freeList(NODE *current)
 		current = current->next;
         } return (0);
 }
-
