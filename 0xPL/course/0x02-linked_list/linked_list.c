@@ -37,7 +37,7 @@ int main(int argc, const char *arg[])
 	 * pointer for the new node for the correct
 	 * linked
 	 */
-	NODE *start = NULL, *current;
+	NODE *start = NULL, *current, *next;
 	char goOn;
 	int listSize = 0, number;
 
@@ -105,5 +105,14 @@ int main(int argc, const char *arg[])
 		current = current->next;
 	}
 
+	/*bring back to the start of the list
+	 * This time we will free the list */
+        current = start;
+        while (current)
+        {
+		next = current->next;
+		free(current);
+                current = next;
+        }
 	return (0);
 }
