@@ -3,7 +3,7 @@
 char *hash_table_get(const hash_table_t *ht, const char *key)
 {
 	/*function that retrieves a value associated with a key.*/
-	unsigned long int index = 0;
+	unsigned long int index;
 
 	/*test if ht is empty*/
 	if (ht == NULL)
