@@ -6,24 +6,40 @@
  **/
 
 int hash_table_set(hash_table_t *ht, const char *key, const char *value){
-	/* verificate if ht is null or key*/
+	unsigned long  int index;
+	hash_node_t *new_node = NULL;
 
-	/*get the index passing the key to hash and hasing*/
+	if (ht == NULL || !key)
+		return (0);
 
-	/*verificate if there are some node
-	 * in the index you get*/
+	printf("getting an index\n");
+	index = key_index((unsigned char *) key, ht->size);
+	printf("This is the index: %lu\n", index);
 
-	/*if are some node verificate in th key is th same
-	 * than the key in the node*/
+	if (ht->array[index] != NULL)
+	{
+		printf("the index is not empty\n\n");
 
-	/*if th key is th same free the value and replace it*/
+		if (strcmp(key, ht->array[index]->key) == 0)
+		{
+			printf("there are a key with the same content\n");
+			free(ht->array[index]->value);
+			ht->array[index]->value = strdup(value);
+			printf("free and set value\n\n");
+			return (1);
+		}
+	}
+	
+	printf("are not a node in this index, or not is the same key\n");
+	new_node = malloc(sizeof(hash_node_t));
+	if (new_node == NULL)
+		return (0);
 
-	/*else the value is not the same, so you have to create
-	 * a new node and assign the values key and values */
-
-	/*if the bucket(array index) is empty or there are a node
-	 * you have to assign the new node in the head in whatever
-	 * of these two cases*/
-
-	/*return 1 on success 0 on fail*/
+	printf("create a node and set values\n");
+	new_node->key = strdup(key);
+	new_node->value = strdup(value);
+	printf("node conection between index and node\n\n");
+	ht->array[index] = new_node;
+	new_node->next = ht->array[index];
+	return (1);
 }
