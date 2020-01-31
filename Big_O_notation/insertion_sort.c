@@ -44,4 +44,3 @@ int insertion_sort(void *data, int size, int esize, int (*compare) (const void *
 	 */
 	free(key);
 	return (0);
-
