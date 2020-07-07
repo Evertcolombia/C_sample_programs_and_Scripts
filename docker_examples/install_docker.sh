@@ -16,6 +16,7 @@ sudo apt-get -y update
 sudo apt-get -y install docker-ce docker-ce-cli containerd.io
 
 #If you don’t want to use sudo for every Docker command, add your current user in the Docker group using
-# sudo usermod -aG docker <your-user>
 
+#sudo groupadd docker
+#sudo usermod -aG docker $USER
 sudo docker run hello-world
