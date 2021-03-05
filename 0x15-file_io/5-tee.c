@@ -7,23 +7,21 @@
 #include <stdlib.h>
 
 /*
- * The tee command reads its standard input until end-of-file, writing a copy of
-   the input to standard output and to the file named in its command-line argument.
- 
- * Implement tee using I/O system calls. By default, tee overwrites any existing
-   file with the given name. Implement the –a command-line option (tee –a file),
-   which causes te to append text to the end of a file if it already exists.
-   (Refer to Appendix B for a description of the getopt() function,
-   which can be used to parse command-line options.)
- *
+ * The tee command reads its standard input until end-of-file, writing a copy
+   of the input to standard output and to the file named in its command-line
+   argument.
+
+ * Implement tee using I/O system calls. By default, tee overwrites any
+   existing file with the given name. Implement the –a command-line option
+   (tee –a file). Which causes te to append text to the end of a file if it
+   already exists.
  */
 
-int main (int argc, char *argv[])
+int write_file(int fd, int fn, char *nameR, char *nameW);
+
+int main(int argc, char *argv[])
 {
-	off_t offset;
-	int fd, fn;
-	char buff[1024];
-	ssize_t numRead;
+	int fd, fn, res;
 
 	if (argc < 3 || strcmp(argv[1], "--help") == 0)
 	{
@@ -37,30 +35,20 @@ int main (int argc, char *argv[])
 		dprintf(STDERR_FILENO, "Cant Open File %s\n", argv[1]);
 		exit(98);
 	}
-	
-	if (argv[2] == "-a")
+
+	if (strcmp(argv[2], "-a") == 0)
 	{
-		printf("hereee1");
 		fn = open(argv[3], O_RDWR, O_TRUNC, O_APPEND);
 		if (fn == -1)
 		{
-			printf("hereee");
 			dprintf(STDERR_FILENO, "Cant Open File %s\n", argv[3]);
 			exit(98);
 		}
-		
+
 		if (lseek(fn, 0, SEEK_END) == -1)
 			dprintf(STDERR_FILENO, "error using lseek"), exit(100);
 
-		while((numRead = read(fd, buff, 1024)) > 0)
-		{
-			write(STDOUT_FILENO, buff, numRead);
-			if (write(fn, buff, 1024) < 0)
-			{
-				dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[3]);
-				exit(99);
-			}
-		}
+		res = write_file(fd, fn, argv[1], argv[3]);
 	}
 	else
 	{
@@ -69,32 +57,20 @@ int main (int argc, char *argv[])
 		{
 			dprintf(STDERR_FILENO, "Cant Open File %s\n", argv[2]);
 			exit(98);
-		
 		}
 		lseek(fn, 0, SEEK_SET);
-
-		while((numRead = read(fd, buff, 1024)) > 0)
-		{
-			write(STDOUT_FILENO, buff, numRead);
-			if (write(fn, buff, numRead) < 0)
-			{
-				dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-				exit(99);
-			}
-		}
+		res = write_file(fd, fn, argv[1], argv[2]);
 	}
 
-	if (numRead == -1)
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]), exit(98);
 	if (close(fd) == -1)
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd), exit(100);
 	if (close(fn) == -1)
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fn), exit(100);
 
-	return (1);
+	return (res);
 }
-/*
-int write_file(int fd, int fn)
+
+int write_file(int fd, int fn, char *nameR, char *nameW)
 {
 	char buff[1024];
 	ssize_t numRead;
@@ -104,10 +80,13 @@ int write_file(int fd, int fn)
 		write(STDOUT_FILENO, buff, numRead);
 		if (write(fn, buff, numRead) < 0)
 		{
-			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", from);
-			exit(98);
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", nameW);
+			exit(99);
 		}
 	}
 
-	return numRead;
-}*/
+	if (numRead == -1)
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", nameR), exit(98);
+
+	return (numRead);
+}
