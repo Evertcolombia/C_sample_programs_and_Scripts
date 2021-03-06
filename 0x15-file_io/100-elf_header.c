@@ -7,7 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 
-
+void mannage_error(char *msg, int code);
 void is_ELF64(unsigned char *e_ident);
 
 int main(int argc, char *argv[])
@@ -16,10 +16,7 @@ int main(int argc, char *argv[])
 	Elf64_Ehdr *efl_h;
 
 	if (argc != 2)
-	{
-		dprintf(STDERR_FILENO, "Usage: elf-header <ELF-file>\n");
-		exit(97);
-	}
+		mannage_error("Usage: elf-header <ELF-file>\n", 97);
 
 	fd = open(argv[1], O_RDONLY | O_SYNC);
 	if (fd == -1)
@@ -30,15 +27,13 @@ int main(int argc, char *argv[])
 
 	efl_h = malloc(sizeof(Elf64_Ehdr));
 	if (efl_h == NULL)
-	{
-		dprintf(STDERR_FILENO, "Cant use malloc\n");
-		exit(100);
-	}
+		mannage_error("Cant use malloc\n", 100);
 
 	numRead = read(fd, efl_h, sizeof(efl_h));
 	if (numRead == -1)
 	{
 		free(efl_h);
+		
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
 		exit(99);
 	}
@@ -56,8 +51,11 @@ void is_ELF64(unsigned char *e_ident)
 	if (!strncmp((char *) e_ident, "\177ELF", 4))
 		printf("ELF Header:\n");
 	else
-	{
-		dprintf(STDERR_FILENO, "Error: ELF mismatch \n");
-		exit(98);
-	}
+		mannage_error("Error: ELF mismatch \n", 98);
+}
+
+void mannage_error(char *msg, int code)
+{
+	dprintf(STDERR_FILENO, "%s", msg);
+	exit(code);
 }
