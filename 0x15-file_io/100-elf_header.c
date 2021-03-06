@@ -9,6 +9,7 @@
 
 void mannage_error(char *msg, int code);
 void is_ELF64(unsigned char *e_ident);
+void mannage_magic(Elf64_Ehdr *header);
 
 int main(int argc, char *argv[])
 {
@@ -20,10 +21,7 @@ int main(int argc, char *argv[])
 
 	fd = open(argv[1], O_RDONLY | O_SYNC);
 	if (fd == -1)
-	{
-		dprintf(STDERR_FILENO, "Cant Open File %s\n", argv[1]);
-		exit(98);
-	}
+		dprintf(STDERR_FILENO, "Cant Open File %s\n", argv[1]), exit(98);
 
 	efl_h = malloc(sizeof(Elf64_Ehdr));
 	if (efl_h == NULL)
@@ -33,26 +31,34 @@ int main(int argc, char *argv[])
 	if (numRead == -1)
 	{
 		free(efl_h);
-		
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
 		exit(99);
 	}
 
 	is_ELF64(efl_h->e_ident);
-
-
+	mannage_magic(efl_h);
 	return 0;
 }
 
 void is_ELF64(unsigned char *e_ident)
 {
-	/*printf("%s", (char *) e_ident);*/
-
 	if (!strncmp((char *) e_ident, "\177ELF", 4))
 		printf("ELF Header:\n");
 	else
 		mannage_error("Error: ELF mismatch \n", 98);
 }
+
+
+void mannage_magic(Elf64_Ehdr *header)
+{
+	int i = 0;
+
+	printf("  Magic:   ");
+	for (i = 0; i < (EI_NIDENT - 1); i++)
+		printf("%02x ", header->e_ident[i]);
+	printf("%02x\n", header->e_ident[i]);
+}
+
 
 void mannage_error(char *msg, int code)
 {
