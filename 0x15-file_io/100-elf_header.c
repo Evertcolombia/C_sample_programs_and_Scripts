@@ -10,9 +10,7 @@
 void mannage_error(char *msg, int code);
 void is_ELF64(unsigned char *e_ident);
 void mannage_magic(Elf64_Ehdr *header);
-void mannage_class(Elf64_Ehdr *header);
-void mannage_data(Elf64_Ehdr *header);
-
+void mannage_class_data(Elf64_Ehdr *header);
 
 int main(int argc, char *argv[])
 {
@@ -40,8 +38,7 @@ int main(int argc, char *argv[])
 
 	is_ELF64(efl_h->e_ident);
 	mannage_magic(efl_h);
-	mannage_class(efl_h);
-	mannage_data(efl_h);
+	mannage_class_data(efl_h);
 	return 0;
 }
 
@@ -64,10 +61,11 @@ void mannage_magic(Elf64_Ehdr *header)
 	dprintf(STDOUT_FILENO, "%02x\n", header->e_ident[i]);
 }
 
-void mannage_class(Elf64_Ehdr *header)
+void mannage_class_data(Elf64_Ehdr *header)
 {
+	/* Class */
 	dprintf(STDOUT_FILENO, "  Class:\t\t\t     ");
-	
+
 	switch(header->e_ident[EI_CLASS])
 	{
 		case ELFCLASS64:
@@ -80,10 +78,8 @@ void mannage_class(Elf64_Ehdr *header)
 			dprintf(STDOUT_FILENO, "Invalid CLASS\n");
 			break;
 	}
-}
 
-void mannage_data(Elf64_Ehdr *header)
-{
+	/* Data */
 	dprintf(STDOUT_FILENO, "  Data:\t\t\t\t     ");
 	switch(header->e_ident[EI_DATA])
 	{
