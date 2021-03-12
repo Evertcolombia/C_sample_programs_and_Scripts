@@ -28,3 +28,12 @@ flags = |= O_APPEND;
 /* to update the flags */
 if (fcntl(fd, F_SETFL, flags) == -1)
 	errExit("fcntl");
+
+/* A further interface that provides some extra flexibility for duplicating file
+   descriptors is the fcntl() F_DUPFD operation:
+
+   This call makes a duplicate of oldfd by using the lowest unused file descriptor
+   greater than or equal to startfd. This is useful if we want a guarantee that the new
+   descriptor (newfd) falls in a certain range of values */
+
+newfd = fcntl(oldfd, F_DUPFD, startfd);
