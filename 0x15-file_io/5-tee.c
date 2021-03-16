@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 
 	if (strcmp(argv[2], "-a") == 0)
 	{
-		fn = open(argv[3], O_RDWR, O_TRUNC, O_APPEND);
+		fn = open(argv[3], O_RDWR | O_APPEND);
 		if (fn == -1)
 		{
 			dprintf(STDERR_FILENO, "Cant Open File %s\n", argv[3]);
@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		fn = open(argv[2], O_RDWR, O_TRUNC, O_APPEND);
+		fn = open(argv[2], O_RDWR | O_TRUNC);
 		if (fn == -1)
 		{
 			dprintf(STDERR_FILENO, "Cant Open File %s\n", argv[2]);
