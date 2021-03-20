@@ -1,6 +1,4 @@
- 
 /**
- * Write a function that returns the length of a string.
  * _strlen - show the lenght of a string
  * @s: pointe to  pass the array
  *
@@ -8,9 +6,10 @@
  */
 int _strlen(char *s)
 {
-    int i = 0;
+	int len = 0;
 
-    while (s[i])
-        ++i;
-    return(i);
+	for (len = 0; *s != '\0'; s++)
+		len++;
+
+	return (len);
 }
