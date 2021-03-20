@@ -1,17 +1,13 @@
-/*Write a function that prints a string, followed by a new line, to stdout.*/
-
 #include "holberton.h"
 /**
- * _strlen - show the lenght of a string
- * @s: pointe to  pass the array
+ * _puts - write the conten of a string to stdout
+ * @str: pointer to string
  *
  * Return: none
  */
 void _puts(char *str)
 {
-    int i = 0;
-    
-    while (str[i])
-        _putchar(str[i]), ++i;
-    _putchar(10);   
+	while (*str)
+		_putchar(*str++);
+	_putchar(10);
 }
