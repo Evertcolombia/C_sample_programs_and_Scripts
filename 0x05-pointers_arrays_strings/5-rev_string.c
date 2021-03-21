@@ -1,5 +1,3 @@
-/*Write a function that reverses a string.*/
-
 /**
  * rev_string - reverse a string
  * @s: pointer for a char
@@ -8,14 +6,13 @@
  */
 void rev_string(char *s)
 {
-    int i = 0, b = 0, d, c;
-    char a[1024];
+	int len;
+	char cp[20], *init = s;
 
-	while (s[i])
-        ++i;
-    
-    for (c = i - 1; c >= 0; c--)
-        a[b] = s[c], b++;
-    for (d = 0; d <= i - 1; d++)
-        s[d] = a[d];
+	for (len = 0; *s != '\0' && (*s + 1) != '\0'; s++)
+		cp[len++] = *s;
+
+	s = init, len -= 1;
+	while (len >= 0)
+		*s++ = cp[len--];
 }
