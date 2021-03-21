@@ -8,7 +8,7 @@ void print_array(int *a, int n)
 {
 	int i;
 
-	for (i = 1; i < n && (*a + 1) != '\0'; i++)
+	for (i = 1; i < n && *a != '\0'; i++)
 		printf("%i, ", *a++);
 	printf("%i\n", *a);
 }
