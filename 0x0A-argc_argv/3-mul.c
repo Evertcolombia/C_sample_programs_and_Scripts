@@ -1,29 +1,27 @@
-/* Write a program that multiplies two numbers.
- *
- * Your program should print the result of the multiplication, followed by a new line
- * You can assume that the two numbers and result of the multiplication can be stored in an integer
- * If the program does not receive two arguments, your program should print Error, followed by a new line, and return 1
- */
-
-#include <stdlib.h>
+/* program that multiplies two numbers. */
 #include <stdio.h>
-/**
- * main - mult two numbers
- * @argc: count arg
- * @argv: array arg
- * Return: Success 0, Error 1
- */
-int main(int argc, char *argv[])
-{
-	int opr1, opr2;
+#include <stdlib.h>
 
-	if (argc != 3)
-	{
-		printf("Error\n");
-		return (1);
-	}
-	opr1 = strtol(argv[1], NULL, 10);
-	opr2 = strtol(argv[2], NULL, 10);
-	printf("%d\n", opr1 * opr2);
-	return (0);
+/**
+ * main - multipli two arguments
+ * @argc: arguments number
+ * @argv: array call arg
+ * Return: Success 0
+ */
+int main(int argc, char  *argv[])
+{
+    int a = 0, b = 0, mul = 0;
+    
+    if (argc != 3)
+    {
+        printf("Error\n"); 
+        return(0);
+    }
+    
+    a = strtol(argv[1], NULL, 10), b = strtol(argv[2], NULL, 10);
+    
+    mul = a * b;
+    printf("%d\n", mul);
+    
+    return(0);
 }
