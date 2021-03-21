@@ -7,7 +7,7 @@
 void rev_string(char *s)
 {
 	int len;
-	char cp[20], *init = s;
+	char cp[1024], *init = s;
 
 	for (len = 0; *s != '\0' && (*s + 1) != '\0'; s++)
 		cp[len++] = *s;
