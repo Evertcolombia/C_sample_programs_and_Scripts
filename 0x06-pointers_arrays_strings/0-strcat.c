@@ -1,22 +1,5 @@
-/*This program concatenae two strings*/
-
 /**
- * _strlen - show the lenght of a string
- * @s: pointe to  pass the array
- *
- * Return: none
- */
-int _strlen(char *s)
-{
-    int i = 0;
-
-    while (s[i])
-        ++i;
-    return (i);
-}
-
-/**
- * *_strcat - concatenate dos strings
+ * *_strcat - concatenate two strings
  * @dest: pointer to a string
  * @src: pointer to the strign to concatenate
  *
@@ -24,13 +7,12 @@ int _strlen(char *s)
  */
 char *_strcat(char *dest, char *src)
 {
-    int i, a, b;
+	char *head = dest;
 
-    a = _strlen(dest);
-    b = _strlen(src);
-
-    for (i = 0; i <= b; i++)
-        dest[a + i] = src[i];
- 
-    return (dest);
+	for (; *dest != '\0'; dest++)
+		;
+	while ((*dest++ = *src++))
+		;
+	dest = head;
+	return (dest);
 }
