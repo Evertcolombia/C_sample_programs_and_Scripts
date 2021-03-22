@@ -5,12 +5,12 @@
  */
 char *string_toupper(char *str)
 {
-    int i = 0;
+	char *cp = str;
 
-    while (str[i])
-    {
-        if (str[i] > 97 && str[i] < 123)
-            str[i] = str[i] - 32;
-        i++;
-    }return (str);
+	while (*cp != '\0')
+	{
+		if (*cp > 97 && *cp < 123)
+			*cp = *cp - 32;
+		cp++;
+	} return (str);
 }
