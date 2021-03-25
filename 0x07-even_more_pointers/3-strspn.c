@@ -1,18 +1,28 @@
 #include "holberton.h"
-
+/**
+ * _strspn - return total prefix of substring in string
+ * @s: principal string
+ * @accept: substring
+ *
+ * Return: count total
+ */
 unsigned int _strspn(char *s, char *accept)
 {
-	unsigned int count = 0, i = 0, b = 0;
+	int count = 0;
+	char *head = accept;
 
-	while (s[b] != 32)
+	while (*accept && *s && *s != 32)
 	{
-		while (accept[i] != '\0')
+		if (*(accept + 1) == '\0')
 		{
-			if (s[b] == accept[i])
-				count ++;
-			i++;
+			if (*s == *accept)
+				count++;
+			accept = head, *s++;
+			continue;
 		}
-		b++;
+		if (*s == *accept)
+			count++;
+		accept++;
 	}
 	return (count);
 }

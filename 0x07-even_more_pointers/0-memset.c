@@ -1,14 +1,17 @@
 #include "holberton.h"
 
 /**
- * function that fill memory pointed wit an specifyc
- * char in specyfic n of bytes
+ * _memset - fill memory to a char pointer
+ * @s: pointer to fill
+ * @b: selected char
+ * @n: size
  *
+ * Return: char pointer
  */
 
 char *_memset(char *s, char b, unsigned int n)
 {
-	while(n--)
-		s[n] = b;
-	return(s);
+	while (n--)
+		*s++ = b;
+	return (s);
 }

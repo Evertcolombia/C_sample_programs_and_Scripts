@@ -1,41 +1,18 @@
 #include "holberton.h"
 
-int _strlen(char *s);
-
 /**
- * this function looks for and specific char in a string
+ * _strchr - Returns the first ocurrence of char or null
+ * @s: pointer to char
+ * @c: char to compare
  *
+ * Return: pointer to char or null
  */
 char *_strchr(char *s, char c)
 {
-	int len = _strlen(s);
-	int i = 0;
-	char *ch = '\0';
-
-	while (i < len)
+	while (*s++)
 	{
-		if (s[i] == c)
-		{
-			ch = &s[i];
-			break;
-		}
-		i++;
+		if (*s == c)
+			return (s);
 	}
-	return (ch);
-}
-
-/**
- * _strlen - show the lenght of a string
- * @s: pointe to  pass the array
- *
- * Return: none
- */
-
-int _strlen(char *s)
-{
-        int a = 0;
-
-        while (s[a])
-                ++a;
-        return (a);
+	return ('\0');
 }
