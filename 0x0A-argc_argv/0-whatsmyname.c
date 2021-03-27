@@ -5,14 +5,11 @@
 /**
  * main - print 0 argv
  * @argc: unused
- * @argv: array arguments call function 
+ * @argv: array arguments call function
  * Return: Success 0
  */
-int main (int argc, char *argv[])
+int main(int __attribute__((unused)) argc, char *argv[])
 {
-    int i =0;
-    
-    for (;i < argc; i++)
-        printf("%s\n", argv[i]);
-    return(0);
+	printf("%s\n", argv[0]);
+	return (0);
 }
