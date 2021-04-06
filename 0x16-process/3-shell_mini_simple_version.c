@@ -13,7 +13,7 @@ int main()
 	size_t characters;
 	int status, i, a = 0;
 
-	while (a  == 0)
+	while (a  < 5)
 	{
 		i = 0;
 		buffer = (char *) malloc(bufsize * sizeof(char));
@@ -45,6 +45,7 @@ int main()
 		}
 		wait(&status);
 		free(buffer);
+		a++;
 	}
 	return (0);
 }
