@@ -13,8 +13,13 @@
 #include <stdbool.h>
 
 extern char **environ;
+char *buffer;
 
 void handleCtrlc(int i);
-char *read_line(char *buffer);
+char *get_line(void);
 char *line_buffer(char *buffer);
+int validate_line(int len, char *buffer);
+void fork_process(char *tokens[], char *buffer);
+int _strlen(char *s);
+
 #endif /* SHELL_H */

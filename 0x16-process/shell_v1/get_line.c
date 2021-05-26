@@ -1,22 +1,33 @@
 #include "shell.h"
 
-char *read_line(char *buffer)
+
+char *get_line(void)
 {
 	size_t size = 0;
-	int i = 0;
 
 	fflush(stdin);
-	i = getline(&buffer, &size, stdin);
-	if (i == EOF) {
+	if (getline(&buffer, &size, stdin) == EOF)
+	{
 		free(buffer);
 		exit(0);
 	}
-	if ((int) i < 0)
-	{
+	return (buffer);
+}
+
+int validate_line(int len, char *buffer)
+{
+	if (buffer == NULL) {
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "\n", 1);
+		return(1);
+	}
+	if (len  < 0) {
 		free(buffer);
 		exit(1);
 	}
-
-	buffer[i - 1] = '\0';
-	return(buffer);
+	else if (len  == 1 && *buffer == 10) {
+		free(buffer);
+		return (len);
+	}
+	return(0);
 }

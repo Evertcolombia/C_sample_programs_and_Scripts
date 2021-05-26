@@ -6,17 +6,19 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-static void displayStatinfo(const char *pathname);
+static void displayStatinfo(const char *pathname, bool isFree);
 
 static void listFiles(const char *dirpath)
 {
 	DIR *dirp;
 	struct dirent *dp;
 	char *buffer;
+	int len = 0;
 
 	/*bool isCurrent;*/	/* True if 'dirpath' is "." */
 
 	/*isCurrent = strcmp(dirpath, ".") == 0;*/
+	printf("%s\n", dirpath);
 	dirp = opendir(dirpath);
 	if (dirp == NULL) {
 		printf("error reading directory\n");
@@ -35,21 +37,29 @@ static void listFiles(const char *dirpath)
 		/*if (!isCurrent)
 			printf("%s/", dirpath);*/
 		/*printf("%s\n", dp->d_name);*/
-		if (strcmp(dp->d_name, "..") == 0) {
-			buffer = (char *) malloc(strlen(dp->d_name) * sizeof(char));
+		
+		if (strcmp(dirpath, ".") == 0) {
+			printf("%s ", dp->d_name);
+			displayStatinfo(dp->d_name, false);
+		}
+		else {
+			len = 1 + strlen(dirpath) + strlen(dp->d_name);
+			buffer = (char *) malloc(len * sizeof(char));
 			if (!buffer)
 				return;
-			buffer = strcpy(buffer, dp->d_name);
+
+			buffer = strcpy(buffer, dirpath);
+			buffer = strcat(buffer, dp->d_name);
+			printf("%s ", dp->d_name);
+			displayStatinfo(buffer, true);
 		}
-		printf("%s ", dp->d_name);
-		displayStatinfo(buffer);
 	}
 
 	if (closedir(dirp) == -1)
 		return;
 }
 
-static void displayStatinfo(const char *pathname)
+static void displayStatinfo(const char *pathname, bool isFree)
 {
 	struct stat sb;
 
@@ -57,7 +67,9 @@ static void displayStatinfo(const char *pathname)
 		printf("error on lstat()\n");
 		return;
 	}
-	printf("%lld bytes\n", (long long) sb.st_size);
+	printf("%lld\n", (long long) sb.st_size);
+	if (isFree)
+		free((char *)pathname);
 	return;
 
 }

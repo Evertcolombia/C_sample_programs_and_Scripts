@@ -13,11 +13,11 @@ int main(int argc, char *argv[])
 		printf("Not argumnets passed\n");
 		return (-1);
 	}
-	fd = open(argv[1], O_WRONLY | O_CREAT);
+	fd = open(argv[1], O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
 	if (fd  == -1)
 		return (-1);
 
-	if (dup2(STDOUT_FILENO, fd) == -1)
+	if (dup2(fd, STDOUT_FILENO) == -1)
 	{
 		perror("dup2");
 		return (EXIT_FAILURE);

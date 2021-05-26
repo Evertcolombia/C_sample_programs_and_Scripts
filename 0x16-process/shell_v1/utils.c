@@ -11,3 +11,12 @@ char *line_buffer(char *buffer)
 	}
 	return (buffer);
 }
+
+int _strlen(char *s)
+{
+	char *cp = s;
+	
+	while (*cp != '\0')
+		cp++;
+	return (cp - s);
+}
